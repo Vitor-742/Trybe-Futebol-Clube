@@ -20,20 +20,13 @@ export default class Repository implements IModel {
       algorithm: 'HS256',
     };
     const secret: string = process.env.JWT_SECRET || 'jwt_secret';
-    // const salt = genSaltSync(10);
-    // const passwordEncoded = hashSync(data.password, salt);
-    // const newData = {
-    //   email: data.email,
-    //   password: passwordEncoded,
-    // };
-    // console.log(newData);
     const userFound = await this.model.findOne({ where: { email: data.email } });
-    if (userFound === null) return { token: '', status: 404 };
+    if (userFound === null) return { token: '', status: 401 };
     if (compareSync(data.password, userFound.password)) {
       const token = sign({ data: userFound }, secret, jwtConfig);
       return { token, status: 200 };
     }
-    return { token: '', status: 404 };
+    return { token: '', status: 401 };
   }
 
   async list(): Promise<User[]> {

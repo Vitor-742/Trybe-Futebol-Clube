@@ -22,7 +22,11 @@ export default class UserController {
     if (!password) return res.status(400).json({ message: 'All fields must be filled' });
     try {
       const { token, status } = await this.service.login(req.body);
-      if (status === 200) return res.status(200).json({ token });
+      if (status === 200) return res.status(status).json({ token });
+      if (status === 401) {
+        return res.status(status)
+          .json({ message: 'Incorrect email or password' });
+      }
       return res.status(404).json({ token });
     } catch (error) {
       console.log(error);
