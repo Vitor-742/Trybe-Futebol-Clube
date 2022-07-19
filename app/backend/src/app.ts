@@ -1,4 +1,15 @@
 import * as express from 'express';
+import UserController from './controllers/usercontroller';
+import UserService from './services/userservice';
+import Repository from './repository/repository';
+
+const userFactory = () => {
+  const repository = new Repository();
+  const service = new UserService(repository);
+  const controller = new UserController(service);
+
+  return controller;
+};
 
 class App {
   public app: express.Express;
@@ -10,9 +21,13 @@ class App {
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
+    this.app.post('/login', async (req, res, next) => {
+      const data = await userFactory().login(req, res, next);
+      return data;
+    });
   }
 
-  private config():void {
+  private config(): void {
     const accessControl: express.RequestHandler = (_req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT,PATCH');
