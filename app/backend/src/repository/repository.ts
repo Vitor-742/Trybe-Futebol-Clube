@@ -1,8 +1,10 @@
 import { compareSync } from 'bcryptjs';
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 import Model from '../database/models/User';
-import { User, IModel, Itoken } from '../protocols';
+import { User, IModel, Itoken, JwtPayload } from '../protocols';
 import 'dotenv/config';
+
+const secret: string = process.env.JWT_SECRET || 'jwt_secret';
 
 export default class Repository implements IModel {
   constructor(private model = Model) {
@@ -19,7 +21,6 @@ export default class Repository implements IModel {
     const jwtConfig: object = {
       algorithm: 'HS256',
     };
-    const secret: string = process.env.JWT_SECRET || 'jwt_secret';
     const userFound = await this.model.findOne({ where: { email: data.email } });
     if (userFound === null) return { token: '', status: 401 };
     if (compareSync(data.password, userFound.password)) {
@@ -27,6 +28,12 @@ export default class Repository implements IModel {
       return { token, status: 200 };
     }
     return { token: '', status: 401 };
+  }
+
+  showRole(token: string): string {
+    const { data } = verify(token, secret) as JwtPayload;
+    console.log(typeof this.model);
+    return data.role;
   }
 
   async list(): Promise<User[]> {

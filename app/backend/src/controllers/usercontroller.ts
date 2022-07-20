@@ -33,6 +33,13 @@ export default class UserController {
     }
   }
 
+  async showRole(req: Request, res: Response, _next: NextFunction) {
+    const { authorization: token } = req.headers;
+    const role = this.service.showRole(token);
+    console.log(role);
+    return res.status(200).json({ role });
+  }
+
   async list(_req: Request, res: Response, _next: NextFunction) {
     const users = await this.service.list();
 

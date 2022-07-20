@@ -2,6 +2,7 @@ import * as express from 'express';
 import UserController from './controllers/usercontroller';
 import UserService from './services/userservice';
 import Repository from './repository/repository';
+import validateToken from './middlewares/validateToken';
 
 const userFactory = () => {
   const repository = new Repository();
@@ -23,6 +24,10 @@ class App {
     this.app.get('/', (req, res) => res.json({ ok: true }));
     this.app.post('/login', async (req, res, next) => {
       const data = await userFactory().login(req, res, next);
+      return data;
+    });
+    this.app.get('/login/validate', validateToken, async (req, res, next) => {
+      const data = await userFactory().showRole(req, res, next);
       return data;
     });
   }

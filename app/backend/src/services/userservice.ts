@@ -11,11 +11,13 @@ export default class UserService implements IService {
   }
 
   login(data: Omit<User, 'id'>): Promise<Itoken> {
-    // const wrong = { token: '', status: 400 };
-    // const { email, password } = data;
-    // if (!email) return { token: '', status: 400 };
     const token = this.model.login(data);
     return token;
+  }
+
+  showRole(data: string): string {
+    const role = this.model.showRole(data);
+    return role;
   }
 
   list(): Promise<User[]> {

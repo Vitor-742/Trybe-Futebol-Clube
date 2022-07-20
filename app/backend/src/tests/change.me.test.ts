@@ -55,4 +55,48 @@ describe('Teste o endpoint de login', () => {
 
     expect(chaiHttpResponse).to.have.status(200)
   });
+
+  it('testa o caso do email nao ser passado na requisicao', async () => {
+    chaiHttpResponse = await chai
+    .request(app)
+    .post('/login')
+    .send({ password: 'secret_user' });
+
+    expect(chaiHttpResponse).to.have.status(400)
+    expect(chaiHttpResponse.body).to.have.property('message')
+    expect(chaiHttpResponse.body.message).to.equals('All fields must be filled')
+  })
+
+  it('testa o caso do password nao ser passado na requisicao', async () => {
+    chaiHttpResponse = await chai
+    .request(app)
+    .post('/login')
+    .send({ email: 'user@user.com' });
+
+    expect(chaiHttpResponse).to.have.status(400)
+    expect(chaiHttpResponse.body).to.have.property('message')
+    expect(chaiHttpResponse.body.message).to.equals('All fields must be filled')
+  })
+
+  it('testa o caso de password nao corresponder ao email', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .post('/login')
+       .send({ email: 'user@user.com', password: 'password' });
+
+    expect(chaiHttpResponse).to.have.status(401)
+    expect(chaiHttpResponse.body).to.have.property('message')
+    expect(chaiHttpResponse.body.message).to.equals('Incorrect email or password')
+  })
+
+//   it('testa o caso de email passado nao estar registrado', async () => {
+//     chaiHttpResponse = await chai
+//        .request(app)
+//        .post('/login')
+//        .send({ email: 'user@user.com', password: 'secret_user' });
+
+//     expect(chaiHttpResponse).to.have.status(401)
+//     expect(chaiHttpResponse.body).to.have.property('message')
+//     expect(chaiHttpResponse.body.message).to.equals('Incorrect email or password')
+//   })
 });
