@@ -16,11 +16,6 @@ export default class UserController {
     }
   }
 
-  // async showTeams(req: Request, res: Response, _next: NextFunction) {
-  //   const teams = await this.service.showTeams();
-  //   return res.status(200).json(teams);
-  // }
-
   async login(req: Request, res: Response, _next: NextFunction) {
     const { email, password } = req.body;
     if (!email) return res.status(400).json({ message: 'All fields must be filled' });

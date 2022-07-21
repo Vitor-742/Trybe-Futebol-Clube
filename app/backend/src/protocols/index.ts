@@ -32,10 +32,12 @@ export interface JwtPayload {
 }
 export interface ITeamModel {
   showTeams(): Promise<Team[]>
+  showTeamById(id: number): Promise<Team | null>
 }
 
 export interface ITeamService {
   showTeams(): Promise<Team[]>
+  showTeamById(id: number): Promise<Team | null>
 }
 
 export interface Team {

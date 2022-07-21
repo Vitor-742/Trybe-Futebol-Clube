@@ -1,27 +1,5 @@
 import * as express from 'express';
-import UserController from './controllers/usercontroller';
-import UserService from './services/userservice';
-import UserRepository from './repository/userrepository';
-import validateToken from './middlewares/validateToken';
-import TeamRepository from './repository/teamrepository';
-import TeamService from './services/teamservice';
-import TeamController from './controllers/teamcontroller';
-
-const UserFactory = () => {
-  const repository = new UserRepository();
-  const service = new UserService(repository);
-  const controller = new UserController(service);
-
-  return controller;
-};
-
-const TeamFactory = () => {
-  const repository = new TeamRepository();
-  const service = new TeamService(repository);
-  const controller = new TeamController(service);
-
-  return controller;
-};
+import routes from './routes';
 
 class App {
   public app: express.Express;
@@ -33,18 +11,7 @@ class App {
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
-    this.app.post('/login', async (req, res, next) => {
-      const data = await UserFactory().login(req, res, next);
-      return data;
-    });
-    this.app.get('/login/validate', validateToken, async (req, res, next) => {
-      const data = await UserFactory().showRole(req, res, next);
-      return data;
-    });
-    this.app.get('/teams', /* validateToken, */ async (req, res, next) => {
-      const data = await TeamFactory().showTeams(req, res, next);
-      return data;
-    });
+    this.app.use('/', routes);
   }
 
   private config(): void {

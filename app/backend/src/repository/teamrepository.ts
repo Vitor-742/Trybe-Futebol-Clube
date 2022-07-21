@@ -15,4 +15,9 @@ export default class TeamRepository implements ITeamModel {
     const teams = await this.model.findAll();
     return teams;
   }
+
+  async showTeamById(id: number): Promise<Team | null> {
+    const team = await this.model.findOne({ where: { id } });
+    return team;
+  }
 }

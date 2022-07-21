@@ -9,4 +9,9 @@ export default class UserService implements ITeamService {
     const teams = this.model.showTeams();
     return teams;
   }
+
+  showTeamById(id: number): Promise<Team | null> {
+    const team = this.model.showTeamById(id);
+    return team;
+  }
 }
