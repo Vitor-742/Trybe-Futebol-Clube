@@ -100,4 +100,16 @@ describe('Teste o endpoint de /login', () => {
     expect(chaiHttpResponse.body).to.have.property('role')
     expect(chaiHttpResponse.body.role).to.equals('admin')
   })
+
+  it('testa o caso de login/validate ser chamado com token incorreto', async () => {
+    const token = 'token_incorreto'
+    chaiHttpResponse = await chai
+       .request(app)
+       .get('/login/validate')
+       .set({"Authorization": token})
+
+    expect(chaiHttpResponse).to.have.status(400)
+    expect(chaiHttpResponse.body).to.have.property('message')
+    expect(chaiHttpResponse.body.role).to.equals('Unvalid Token')
+  })
 });
