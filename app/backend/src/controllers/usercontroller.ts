@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import { IService } from '../protocols';
+import { IUserService } from '../protocols';
 
 export default class UserController {
-  constructor(private service: IService) {
+  constructor(private service: IUserService) {
     this.service = service;
   }
 
@@ -15,6 +15,11 @@ export default class UserController {
       console.log(error);
     }
   }
+
+  // async showTeams(req: Request, res: Response, _next: NextFunction) {
+  //   const teams = await this.service.showTeams();
+  //   return res.status(200).json(teams);
+  // }
 
   async login(req: Request, res: Response, _next: NextFunction) {
     const { email, password } = req.body;

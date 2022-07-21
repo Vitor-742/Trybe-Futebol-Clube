@@ -1,7 +1,7 @@
-import { User, IModel, IService, Itoken } from '../protocols';
+import { User, IUserModel, IUserService, Itoken } from '../protocols';
 
-export default class UserService implements IService {
-  constructor(private model: IModel) {
+export default class UserService implements IUserService {
+  constructor(private model: IUserModel) {
     this.model = model;
   }
 
@@ -19,6 +19,11 @@ export default class UserService implements IService {
     const role = this.model.showRole(data);
     return role;
   }
+
+  // showTeams(): Promise<Team[]> {
+  //   const teams = this.model.showTeams();
+  //   return teams;
+  // }
 
   list(): Promise<User[]> {
     const users = this.model.list();

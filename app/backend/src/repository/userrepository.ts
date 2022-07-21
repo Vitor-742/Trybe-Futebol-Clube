@@ -1,12 +1,12 @@
 import { compareSync } from 'bcryptjs';
 import { sign, verify } from 'jsonwebtoken';
 import Model from '../database/models/User';
-import { User, IModel, Itoken, JwtPayload } from '../protocols';
+import { User, IUserModel, Itoken, JwtPayload } from '../protocols';
 import 'dotenv/config';
 
 const secret: string = process.env.JWT_SECRET || 'jwt_secret';
 
-export default class Repository implements IModel {
+export default class UserRepository implements IUserModel {
   constructor(private model = Model) {
     this.model = model;
   }
@@ -16,6 +16,10 @@ export default class Repository implements IModel {
 
     return user;
   }
+
+  // async showTeams(): Promise<Team[]> {
+  //   const teams = await this.model.findAll()
+  // }
 
   async login(data: Omit<User, 'id'>): Promise<Itoken> {
     const jwtConfig: object = {

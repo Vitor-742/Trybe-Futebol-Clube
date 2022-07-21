@@ -11,14 +11,14 @@ export interface Itoken {
   status: number;
 }
 
-export interface IService {
+export interface IUserService {
   create(data:Omit<User, 'id'>): Promise<User>
   list(): Promise<User[]>;
   login(data:Omit<User, 'id'>): Promise<Itoken>
   showRole(data: string | undefined): string
 }
 
-export interface IModel {
+export interface IUserModel {
   create(data:Omit<User, 'id'>): Promise<User>
   list(): Promise<User[]>;
   login(data:Omit<User, 'id'>): Promise<Itoken>
@@ -29,4 +29,16 @@ export interface JwtPayload {
   data: {
     role: string
   }
+}
+export interface ITeamModel {
+  showTeams(): Promise<Team[]>
+}
+
+export interface ITeamService {
+  showTeams(): Promise<Team[]>
+}
+
+export interface Team {
+  id: number,
+  teamName: string,
 }
