@@ -20,7 +20,7 @@ const user = {
   password: '$2a$08$Y8Abi8jXvsXyqm.rmp0B.uQBA5qUz7T6Ghlg/CvVr/gLxYj5UAZVO'
 } as User;
 
-describe('Teste o endpoint de login', () => {
+describe('Teste o endpoint de /login', () => {
   /**
    * Exemplo do uso de stubs com tipos
    */
@@ -89,14 +89,15 @@ describe('Teste o endpoint de login', () => {
     expect(chaiHttpResponse.body.message).to.equals('Incorrect email or password')
   })
 
-//   it('testa o caso de email passado nao estar registrado', async () => {
-//     chaiHttpResponse = await chai
-//        .request(app)
-//        .post('/login')
-//        .send({ email: 'user@user.com', password: 'secret_user' });
+  it('testa o caso de login/validate ser chamado com token correto', async () => {
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJ1c2VybmFtZSI6IkFkbWluIiwicm9sZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJwYXNzd29yZCI6IiQyYSQwOCR4aS5IeGsxY3pBTzBuWlIuLkIzOTN1MTBhRUQwUlExTjNQQUVYUTdIeHRMaktQRVpCdS5QVyJ9LCJpYXQiOjE2NTgyODI4OTN9.6t8KI2xtOM-F88xU4QrRtb56z3ceK0iRV0kAhN2137s'
+    chaiHttpResponse = await chai
+       .request(app)
+       .get('/login/validate')
+       .set({"Authorization": token})
 
-//     expect(chaiHttpResponse).to.have.status(401)
-//     expect(chaiHttpResponse.body).to.have.property('message')
-//     expect(chaiHttpResponse.body.message).to.equals('Incorrect email or password')
-//   })
+    expect(chaiHttpResponse).to.have.status(200)
+    expect(chaiHttpResponse.body).to.have.property('role')
+    expect(chaiHttpResponse.body.role).to.equals('admin')
+  })
 });
