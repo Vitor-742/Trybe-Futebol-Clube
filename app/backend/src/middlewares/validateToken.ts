@@ -10,7 +10,7 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
     verify(token, secret);
     next();
   } catch (error) {
-    return res.status(400).json({ message: 'Unvalid Token' });
+    return res.status(400).json({ message: 'Unvalid Token' }).end();
   }
 };
 

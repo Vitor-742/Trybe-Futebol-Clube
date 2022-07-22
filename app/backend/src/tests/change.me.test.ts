@@ -110,6 +110,6 @@ describe('Teste o endpoint de /login', () => {
 
     expect(chaiHttpResponse).to.have.status(400)
     expect(chaiHttpResponse.body).to.have.property('message')
-    expect(chaiHttpResponse.body.role).to.equals('Unvalid Token')
+    expect(chaiHttpResponse.body.message).to.equals('Unvalid Token')
   })
 });
