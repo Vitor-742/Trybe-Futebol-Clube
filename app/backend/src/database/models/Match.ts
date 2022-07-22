@@ -1,4 +1,4 @@
-import { Model, INTEGER } from 'sequelize';
+import { BOOLEAN, Model, INTEGER } from 'sequelize';
 import db from '.';
 import Team from './Team';
 // import OtherModel from './OtherModel';
@@ -37,7 +37,7 @@ Match.init({
     allowNull: false,
   },
   inProgress: {
-    type: INTEGER,
+    type: BOOLEAN,
     allowNull: false,
   },
 }, {
@@ -53,8 +53,11 @@ Match.init({
   * Associations 1:N devem ficar em uma das instâncias de modelo
   * */
 
-Team.belongsTo(Match, { foreignKey: 'homeTeam', as: 'TeamName' });
-Team.belongsTo(Match, { foreignKey: 'awayTeam', as: 'teamName' });
+Match.belongsTo(Team, { foreignKey: 'homeTeam', as: 'teamHome' });
+Match.belongsTo(Team, { foreignKey: 'awayTeam', as: 'teamAway' });
+
+// Team.hasMany(Match, { foreignKey: 'homeTeam', as: 'homeMatches' });
+// Team.hasMany(Match, { foreignKey: 'awayTeam', as: 'awayMatches' });
 
 // Example.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
 // Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });

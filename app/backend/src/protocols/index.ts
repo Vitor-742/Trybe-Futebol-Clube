@@ -44,3 +44,20 @@ export interface Team {
   id: number,
   teamName: string,
 }
+
+export interface Match {
+  id: number,
+  homeTeam: number,
+  homeTeamGoals: number,
+  awayTeam: number,
+  awayTeamGoals: number,
+  inProgress: number,
+}
+
+export interface IMatchService {
+  showMatches(): Promise<Match[]>;
+}
+
+export interface IMatchModel {
+  showMatches(): Promise<Match[]>;
+}
