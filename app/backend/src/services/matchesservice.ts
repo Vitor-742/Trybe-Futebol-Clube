@@ -9,4 +9,9 @@ export default class MatchesService implements IMatchService {
     const matches = this.model.showMatches();
     return matches;
   }
+
+  createMatch(data: Match): Promise<Match> {
+    const newMatch = this.model.createMatch({ ...data, inProgress: true });
+    return newMatch;
+  }
 }

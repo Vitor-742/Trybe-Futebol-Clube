@@ -46,18 +46,20 @@ export interface Team {
 }
 
 export interface Match {
-  id: number,
+  id?: number,
   homeTeam: number,
   homeTeamGoals: number,
   awayTeam: number,
   awayTeamGoals: number,
-  inProgress: number,
+  inProgress?: boolean,
 }
 
 export interface IMatchService {
   showMatches(): Promise<Match[]>;
+  createMatch(data: Match): Promise<Match>;
 }
 
 export interface IMatchModel {
   showMatches(): Promise<Match[]>;
+  createMatch(data: Match): Promise<Match>;
 }

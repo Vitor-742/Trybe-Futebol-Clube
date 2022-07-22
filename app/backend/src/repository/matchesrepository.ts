@@ -13,7 +13,11 @@ export default class MatchesRepository implements IMatchModel {
       .findAll({ include: [
         { model: Team, as: 'teamHome', attributes: { exclude: ['id'] } },
         { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } }] });
-    console.log(matches);
     return matches;
+  }
+
+  async createMatch(data: Match): Promise<Match> {
+    const newMatch = await this.model.create(data);
+    return newMatch;
   }
 }

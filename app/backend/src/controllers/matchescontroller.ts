@@ -10,4 +10,9 @@ export default class MatchesController {
     const matches = await this.service.showMatches();
     return res.status(200).json(matches);
   }
+
+  async createMatch(req: Request, res: Response, _next: NextFunction) {
+    const newMatch = await this.service.createMatch(req.body);
+    return res.status(201).json(newMatch);
+  }
 }
