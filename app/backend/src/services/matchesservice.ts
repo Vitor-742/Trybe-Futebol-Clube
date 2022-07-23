@@ -14,4 +14,8 @@ export default class MatchesService implements IMatchService {
     const newMatch = this.model.createMatch({ ...data, inProgress: true });
     return newMatch;
   }
+
+  finishMatch(id: number): void {
+    this.model.finishMatch(id);
+  }
 }

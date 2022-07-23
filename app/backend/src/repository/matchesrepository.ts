@@ -20,4 +20,8 @@ export default class MatchesRepository implements IMatchModel {
     const newMatch = await this.model.create(data);
     return newMatch;
   }
+
+  async finishMatch(id: number): Promise<void> {
+    await this.model.update({ inProgress: false }, { where: { id } });
+  }
 }

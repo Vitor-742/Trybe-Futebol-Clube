@@ -13,6 +13,12 @@ export default class MatchesController {
 
   async createMatch(req: Request, res: Response, _next: NextFunction) {
     const newMatch = await this.service.createMatch(req.body);
-    return res.status(201).json(newMatch);// test
+    return res.status(201).json(newMatch);
+  }
+
+  async finishMatch(req: Request, res: Response, _next: NextFunction) {
+    const { id } = req.params;
+    await this.service.finishMatch(parseInt(id, 10));
+    return res.status(200).json({ message: 'Finished' });
   }
 }

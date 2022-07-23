@@ -24,4 +24,9 @@ router.post('/', validateToken, async (req, res, next) => {
   return newMatch;
 });
 
+router.patch('/:id/finish', /* validateToken, */ async (req, res, next) => {
+  const finishMatch = await MatchFactory().finishMatch(req, res, next);
+  return finishMatch;
+});
+
 export default router;

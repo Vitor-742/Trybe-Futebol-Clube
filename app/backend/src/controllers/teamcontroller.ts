@@ -7,7 +7,6 @@ export default class TeamController {
   }
 
   async showTeams(req: Request, res: Response, _next: NextFunction) {
-    console.log(req.headers);
     const teams = await this.service.showTeams();
     return res.status(200).json(teams);
   }

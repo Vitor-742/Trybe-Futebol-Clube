@@ -57,9 +57,11 @@ export interface Match {
 export interface IMatchService {
   showMatches(): Promise<Match[]>;
   createMatch(data: Match): Promise<Match>;
+  finishMatch(id: number): void;
 }
 
 export interface IMatchModel {
   showMatches(): Promise<Match[]>;
   createMatch(data: Match): Promise<Match>;
+  finishMatch(id: number): Promise<void>;
 }
