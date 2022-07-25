@@ -5,7 +5,7 @@ import TeamController from '../controllers/teamcontroller';
 
 const router = express.Router();
 
-const TeamFactory = () => {
+export const TeamFactory = () => {
   const repository = new TeamRepository();
   const service = new TeamService(repository);
   const controller = new TeamController(service);

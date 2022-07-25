@@ -2,10 +2,13 @@ import Model from '../database/models/Match';
 import Team from '../database/models/Team';
 import { IMatchModel, Match } from '../protocols';
 import 'dotenv/config';
+import TeamRepository from './teamrepository';
 
 export default class MatchesRepository implements IMatchModel {
+  private teamRepository;
   constructor(private model = Model) {
     this.model = model;
+    this.teamRepository = new TeamRepository();
   }
 
   async showMatches(): Promise<Match[]> {
@@ -17,6 +20,14 @@ export default class MatchesRepository implements IMatchModel {
   }
 
   async createMatch(data: Match): Promise<Match> {
+    const homeTeam = await this.teamRepository.showIds(data.homeTeam);
+    const awayTeam = await this.teamRepository.showIds(data.awayTeam);
+
+    if (!homeTeam || !awayTeam) throw new Error('There is no team with such id!');
+
+    console.log(homeTeam);
+    console.log(awayTeam);
+
     const newMatch = await this.model.create(data);
     return newMatch;
   }
