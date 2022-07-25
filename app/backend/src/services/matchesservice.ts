@@ -15,6 +15,10 @@ export default class MatchesService implements IMatchService {
     return newMatch;
   }
 
+  updateMatch(data: Omit<Match, 'homeTeam' | 'awayteam'>, id: number): void {
+    this.model.updateMatch(data, id);
+  }
+
   finishMatch(id: number): void {
     this.model.finishMatch(id);
   }

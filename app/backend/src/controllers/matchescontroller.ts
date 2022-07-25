@@ -25,6 +25,13 @@ export default class MatchesController {
     }
   }
 
+  async updateMatch(req: Request, res: Response, _next: NextFunction) {
+    const { id } = req.params;
+    const idNumber = parseInt(id, 10);
+    await this.service.updateMatch(req.body, idNumber);
+    return res.status(200).json({});
+  }
+
   async finishMatch(req: Request, res: Response, _next: NextFunction) {
     const { id } = req.params;
     await this.service.finishMatch(parseInt(id, 10));

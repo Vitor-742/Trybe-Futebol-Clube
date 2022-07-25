@@ -29,4 +29,9 @@ router.patch('/:id/finish', validateToken, async (req, res, next) => {
   return finishMatch;
 });
 
+router.patch('/:id', validateToken, async (req, res, next) => {
+  const updateMatch = await MatchFactory().updateMatch(req, res, next);
+  return updateMatch;
+});
+
 export default router;

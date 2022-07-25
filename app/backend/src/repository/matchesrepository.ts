@@ -25,11 +25,12 @@ export default class MatchesRepository implements IMatchModel {
 
     if (!homeTeam || !awayTeam) throw new Error('There is no team with such id!');
 
-    console.log(homeTeam);
-    console.log(awayTeam);
-
     const newMatch = await this.model.create(data);
     return newMatch;
+  }
+
+  async updateMatch(data: Omit<Match, 'homeTeam' | 'awayteam'>, id: number): Promise<void> {
+    await this.model.update(data, { where: { id } });
   }
 
   async finishMatch(id: number): Promise<void> {
