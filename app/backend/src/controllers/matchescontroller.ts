@@ -28,7 +28,7 @@ export default class MatchesController {
   async updateMatch(req: Request, res: Response, _next: NextFunction) {
     const { id } = req.params;
     const idNumber = parseInt(id, 10);
-    await this.service.updateMatch(req.body, idNumber);
+    this.service.updateMatch(req.body, idNumber);
     return res.status(200).json({});
   }
 
@@ -36,5 +36,10 @@ export default class MatchesController {
     const { id } = req.params;
     await this.service.finishMatch(parseInt(id, 10));
     return res.status(200).json({ message: 'Finished' });
+  }
+
+  async setLeaderboard(_req: Request, res: Response, _next: NextFunction) {
+    const leaderboard = await this.service.setLeaderboard();
+    return res.status(200).json(leaderboard);
   }
 }

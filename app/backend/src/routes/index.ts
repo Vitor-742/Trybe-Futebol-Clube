@@ -8,5 +8,6 @@ const router = express.Router();
 router.use('/login', loginRouter);
 router.use('/teams', teamRouter);
 router.use('/matches', matchesRouter);
+router.use('/', matchesRouter);
 
 export default router;

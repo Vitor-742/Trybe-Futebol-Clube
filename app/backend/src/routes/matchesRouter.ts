@@ -29,9 +29,14 @@ router.patch('/:id/finish', validateToken, async (req, res, next) => {
   return finishMatch;
 });
 
-router.patch('/:id', validateToken, async (req, res, next) => {
+router.patch('/:id', async (req, res, next) => {
   const updateMatch = await MatchFactory().updateMatch(req, res, next);
   return updateMatch;
+});
+
+router.get('/leaderboard/home', async (req, res, next) => {
+  const leaderboard = await MatchFactory().setLeaderboard(req, res, next);
+  return leaderboard;
 });
 
 export default router;

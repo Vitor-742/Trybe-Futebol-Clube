@@ -59,6 +59,7 @@ export interface IMatchService {
   createMatch(data: Match): Promise<Match>;
   finishMatch(id: number): void;
   updateMatch(data: Omit<Match, 'homeTeam' | 'awayteam'>, id: number): void
+  setLeaderboard(): any
 }
 
 export interface IMatchModel {
@@ -66,4 +67,19 @@ export interface IMatchModel {
   createMatch(data: Match): Promise<Match>;
   finishMatch(id: number): Promise<void>;
   updateMatch(data: Omit<Match, 'homeTeam' | 'awayteam'>, id: number): Promise<void>
+  setLeaderboard(): Promise<any>
+}
+
+export interface teamLeaderboard {
+  id?: number
+  name?: string
+  totalPoints: number
+  totalGames: number
+  totalVictories: number
+  totalDraws: number
+  totalLosses: number
+  goalsFavor: number
+  goalsOwn: number
+  goalsBalance: number
+  efficiency?: number
 }
