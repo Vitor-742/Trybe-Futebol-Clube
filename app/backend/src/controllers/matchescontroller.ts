@@ -42,4 +42,9 @@ export default class MatchesController {
     const leaderboard = await this.service.setLeaderboard();
     return res.status(200).json(leaderboard);
   }
+
+  async setLeaderboardAway(_req: Request, res: Response, _next: NextFunction) {
+    const leaderboard = await this.service.setLeaderboardAway();
+    return res.status(200).json(leaderboard);
+  }
 }

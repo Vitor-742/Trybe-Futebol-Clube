@@ -35,6 +35,7 @@ const recipeTeam = () => ({
   goalsOwn: 0,
   goalsBalance: 0,
 });
+
 const setTeamsNames = (leaderboardEfficiency: any, teamsIds: any) => {
   const leaderboardName = leaderboardEfficiency.map((time: any) => {
     const copyTeam = time;
@@ -77,7 +78,7 @@ const auxMatchesAwayTeam = (matches: Match[], leaderboard: teamLeaderboard[]) =>
     const awayteam = copyLeaderboard.find((time) => time.id === match.awayTeam);
     if (awayteam) newAwayTeam = updateTeam(awayteam, match.awayTeamGoals, match.homeTeamGoals);
     else {
-      newAwayTeam = updateTeam(recipeTeam, match.awayTeamGoals, match.homeTeamGoals);
+      newAwayTeam = updateTeam(recipeTeam(), match.awayTeamGoals, match.homeTeamGoals);
       newAwayTeam.id = match.awayTeam;
     }
     copyLeaderboard.push(newAwayTeam);
@@ -134,6 +135,30 @@ export default class MatchesRepository implements IMatchModel {
     // leaderboard = leaderboard.filter((time) => time.id !== newAwayTeam.id);
     // leaderboard.push(newAwayTeam);
     const leaderboardEfficiency = newLeaderboard.map((time) => {
+      const efficiency = (time.totalPoints / (time.totalGames * 3)) * 100;
+      const efficiency2 = parseFloat(efficiency.toFixed(2));
+      const copyTeam = time;
+      copyTeam.efficiency = efficiency2;
+      return copyTeam;
+    });
+
+    const teamsIds = await this.teamRepository.showTeams();
+    const leaderboardName = setTeamsNames(leaderboardEfficiency, teamsIds);
+
+    return leaderboardName;
+  }
+
+  async setLeaderboardAway(): Promise<any> {
+    const leaderboard: any[] = [];
+    const matches = await this.model.findAll();
+    // const newLeaderboard = auxMatchesHomeTeam(matches, leaderboard);
+    // console.log(newLeaderboard);
+    // leaderboard = leaderboard.filter((time) => time.id !== newTeam.id);
+    // leaderboard.push(newTeam);
+    const fullLeaderboard = auxMatchesAwayTeam(matches, leaderboard);
+    // leaderboard = leaderboard.filter((time) => time.id !== newAwayTeam.id);
+    // leaderboard.push(newAwayTeam);
+    const leaderboardEfficiency = fullLeaderboard.map((time) => {
       const efficiency = (time.totalPoints / (time.totalGames * 3)) * 100;
       const efficiency2 = parseFloat(efficiency.toFixed(2));
       const copyTeam = time;
