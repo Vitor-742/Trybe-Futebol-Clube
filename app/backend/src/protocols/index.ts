@@ -61,6 +61,7 @@ export interface IMatchService {
   updateMatch(data: Omit<Match, 'homeTeam' | 'awayteam'>, id: number): void
   setLeaderboard(): any
   setLeaderboardAway(): any
+  setLeaderboardFull(): any
 }
 
 export interface IMatchModel {
@@ -70,6 +71,7 @@ export interface IMatchModel {
   updateMatch(data: Omit<Match, 'homeTeam' | 'awayteam'>, id: number): Promise<void>
   setLeaderboard(): Promise<any>
   setLeaderboardAway(): Promise<any>
+  setLeaderboardFull(): Promise<any>
 }
 
 export interface teamLeaderboard {

@@ -23,4 +23,9 @@ router.get('/away', async (req, res, next) => {
   return leaderboard;
 });
 
+router.get('/', async (req, res, next) => {
+  const leaderboard = await MatchFactory().setLeaderboardFull(req, res, next);
+  return leaderboard;
+});
+
 export default router;

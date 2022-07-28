@@ -162,7 +162,31 @@ export default class MatchesRepository implements IMatchModel {
       const efficiency = (time.totalPoints / (time.totalGames * 3)) * 100;
       const efficiency2 = parseFloat(efficiency.toFixed(2));
       const copyTeam = time;
-      copyTeam.efficiency = efficiency2;
+      copyTeam.efficiency = efficiency2;// so fazer ultimo endpoint e consertar lint
+      return copyTeam;
+    });
+
+    const teamsIds = await this.teamRepository.showTeams();
+    const leaderboardName = setTeamsNames(leaderboardEfficiency, teamsIds);
+
+    return leaderboardName;
+  }
+
+  async setLeaderboardFull(): Promise<any> {
+    const leaderboard: any[] = [];
+    const matches = await this.model.findAll();
+    const newLeaderboard = auxMatchesHomeTeam(matches, leaderboard);
+    // console.log(newLeaderboard);
+    // leaderboard = leaderboard.filter((time) => time.id !== newTeam.id);
+    // leaderboard.push(newTeam);
+    const fullLeaderboard = auxMatchesAwayTeam(matches, newLeaderboard);
+    // leaderboard = leaderboard.filter((time) => time.id !== newAwayTeam.id);
+    // leaderboard.push(newAwayTeam);
+    const leaderboardEfficiency = fullLeaderboard.map((time) => {
+      const efficiency = (time.totalPoints / (time.totalGames * 3)) * 100;
+      const efficiency2 = parseFloat(efficiency.toFixed(2));
+      const copyTeam = time;
+      copyTeam.efficiency = efficiency2;// so fazer ultimo endpoint e consertar lint
       return copyTeam;
     });
 

@@ -64,4 +64,25 @@ export default class MatchesService implements IMatchService {
     });
     return LB;
   }
+
+  async setLeaderboardFull(): Promise<any> {
+    const leaderboard = await this.model.setLeaderboardFull();
+
+    leaderboard.sort((a: any, b: any) => {
+      if (a.totalPoints > b.totalPoints) return -1;
+      if (a.totalPoints < b.totalPoints) return 1;
+      if (a.goalsBalance > b.goalsBalance) return -1;
+      if (a.goalsBalance < b.goalsBalance) return 1;
+      if (a.goalsFavor > b.goalsFavor) return -1;
+      if (a.goalsFavor < b.goalsFavor) return 1;
+      return 0;
+    });
+    let oldTeam = '';
+    const LB = leaderboard.filter((time: any) => {
+      const aux = time.name !== oldTeam;
+      oldTeam = time.name;
+      return aux;
+    });
+    return LB;
+  }
 }
