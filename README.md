@@ -1,7 +1,9 @@
 ------ BEM VINDO AO TRYBE FUTEBOL CLUBE -------
 
-Neste projeto eu fiz toda a parte do BackEnd, 
-com endpoints e conexões com o banco de dados.
+Este é um projeto desenvolvido por Vitor Campos
+
+Este projeto simula um app com front-end, back-end e banco de dados,
+onde é possivel fazer login, ver times do campeonato e classificação deles, inserir, atualizar e finalizar jogos. 
 
 Para rodar o Projeto
 
@@ -28,6 +30,9 @@ POST
   "email": "admin@admin.com",
   "password": "secret_amin"
 }
+*rode este endpoit primerio e coloque o token no headers.authorization para
+usa-lo em algumas das proximas nas requisições*
+
 /matches - cria nova partida
     body - {
   "homeTeam": 16, // valor deve ser o id do time
