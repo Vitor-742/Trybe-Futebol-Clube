@@ -10,7 +10,13 @@ Para rodar o Projeto
 npm install
 npm run compose:up:dev
 
+-- Navegador --
+
+http://localhost:3000/
+
 -- Insomnia ou Postman --
+
+http://localhost:3001/
 
 GET
 
@@ -22,13 +28,12 @@ leaderboard/ - classificação geral
 /teams/:id - retorna time especifico
 /matches - retorna todas as partidas
 
-
 POST
 
 /login - verifica dados e retorna token
     body - {
   "email": "admin@admin.com",
-  "password": "secret_amin"
+  "password": "secret_admin"
 }
 *rode este endpoit primerio e coloque o token no headers.authorization para
 usa-lo em algumas das proximas nas requisições*
